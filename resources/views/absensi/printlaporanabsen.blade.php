@@ -132,8 +132,8 @@
                     }
                 ?>
                     <td>
-                        <span style="color:{{ $h[0] > '07:30:00' ? 'red' : '' }}">{{ $h[0] }}</span><br>
-                        <span style="color:{{ $h[0] < '15:30:00' ? 'red' : '' }}">{{ $h[0] }}</span><br>
+                        <span style="color:{{ $h[0] > '07:30:00' ? 'red' : '' }}">{{ !empty($h[0]) ? $h[0] : 'null' }}</span><br>
+                        <span style="color:{{ $h[1] < '15:30:00' ? 'red' : '' }}">{{ $h[1] }}</span><br>
                     </td>
                     <?php
                 }
