@@ -11,9 +11,9 @@ class AuthController extends Controller
 {
     public function Login(Request $request)
     {
-        if(Auth::guard('pegawai')->attempt(['user_name' => $request->user_name,'password' => $request->password])){
+        if (Auth::guard('pegawai')->attempt(['user_name' => $request->user_name, 'password' => $request->password])) {
             return Redirect::route('dashboard');
-        }else{
+        } else {
             return Redirect::route('login')->with(['error' => 'Usermane / Password salah.']);
         }
 
@@ -21,23 +21,23 @@ class AuthController extends Controller
 
     public function Logout()
     {
-        if(Auth::guard('pegawai')->check()){
+        if (Auth::guard('pegawai')->check()) {
             Auth::guard('pegawai')->logout();
             return redirect('/');
         }
     }
     public function adminlogin(Request $request)
     {
-        if(Auth::guard('user')->attempt(['email' => $request->email,'password' => $request->password])){
+        if (Auth::guard('user')->attempt(['email' => $request->email, 'password' => $request->password])) {
             return Redirect('/admin/adminindex');
-        }else{
+        } else {
             return Redirect('/admin')->with(['error' => 'Email / Password salah.']);
         }
 
     }
     public function adminLogout()
     {
-        if(Auth::guard('user')->check()){
+        if (Auth::guard('user')->check()) {
             Auth::guard('user')->logout();
             return redirect('/admin');
         }

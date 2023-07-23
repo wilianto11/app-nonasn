@@ -10,13 +10,13 @@
         </div>
         <div class="right">
             <a class="headerButton">
-                @if(!empty(Auth::guard('pegawai')->user()->foto))
-                @php
-                    $path = Storage::url('uploads/pegawai/'.Auth::guard('pegawai')->user()->foto);
-                @endphp
-                <img src="{{url($path)}}" alt="avatar" class="imaged w40">
+                @if (!empty(Auth::guard('pegawai')->user()->foto))
+                    @php
+                        $path = Storage::url('uploads/pegawai/' . Auth::guard('pegawai')->user()->foto);
+                    @endphp
+                    <img src="{{ url($path) }}" alt="avatar" class="imaged w40">
                 @else
-                <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w38">
+                    <img src="assets/img/sample/avatar/avatar1.jpg" alt="avatar" class="imaged w38">
                 @endif
             </a>
         </div>

@@ -74,8 +74,8 @@
                                                         <form action="/perangkatdaerah/{{ $data->id_pd }}/delete"
                                                             method="POST">
                                                             @csrf
-                                                            <a class="delete" id="dropdown-item"><i
-                                                                    class="bi bi-trash"></i> Delete</a>
+                                                            <a class="delete" id="dropdown-item"><i class="bi bi-trash"></i>
+                                                                Delete</a>
                                                         </form>
                                                     </div>
                                                 </div>
@@ -92,128 +92,127 @@
             </div>
         </div>
     </section>
-                <!--/ Responsive Table -->
+    <!--/ Responsive Table -->
 
 
 
-            <!--Modal Large-->
-            <!-- Large Modal -->
-            <div class="modal fade text-left" id="largeModal" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel160" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                <div class="modal-content">
-                    <div class="modal-header bg-primary">
-                        <h5 class="modal-title white" id="myModalLabel160">Tambah Perangkat Daerah</h5>
-                            <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+    <!--Modal Large-->
+    <!-- Large Modal -->
+    <div class="modal fade text-left" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="myModalLabel160">Tambah Perangkat Daerah</h5>
+                    <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
+                </div>
+                <div class="modal-body">
+                    <form action="/perangkatdaerah/createstore" method="POST" id="frmPd">
+                        @csrf
+                        <div class="row g-2">
+                            <div class="row g-2">
+                                <div class="col mb-0">
+                                    <label for="nik" class="form-label">ID Perangkat Daerah</label>
+                                    <input type="text" id="id_pd" name="id_pd" class="form-control"
+                                        placeholder="ID Perangkat Daerah" />
+                                </div>
+                            </div>
                         </div>
-                        <div class="modal-body">
-                            <form action="/perangkatdaerah/createstore" method="POST" id="frmPd">
-                                @csrf
-                                <div class="row g-2">
-                                    <div class="row g-2">
-                                        <div class="col mb-0">
-                                            <label for="nik" class="form-label">ID Perangkat Daerah</label>
-                                            <input type="text" id="id_pd" name="id_pd" class="form-control"
-                                                placeholder="ID Perangkat Daerah" />
-                                        </div>
-                                    </div>
+                        <div class="row g-2">
+                            <div class="row g-2">
+                                <div class="col mb-0">
+                                    <label for="nama_pd" class="form-label">Perangkat Daerah</label>
+                                    <input type="text" id="nama_pd" name="nama_pd" class="form-control"
+                                        placeholder="Perangkat Daerah" />
                                 </div>
-                                <div class="row g-2">
-                                    <div class="row g-2">
-                                        <div class="col mb-0">
-                                            <label for="nama_pd" class="form-label">Perangkat Daerah</label>
-                                            <input type="text" id="nama_pd" name="nama_pd" class="form-control"
-                                                placeholder="Perangkat Daerah" />
-                                        </div>
-                                    </div>
-                                </div>
-
-                                <div class="row g-2">
-
-                                    <div class="modal-footer">
-
-                                        <button type="submit" class="btn btn-primary">Save</button>
-                                    </div>
-                                </div>
-                            </form>
+                            </div>
                         </div>
-                    </div>
+
+                        <div class="row g-2">
+
+                            <div class="modal-footer">
+
+                                <button type="submit" class="btn btn-primary">Save</button>
+                            </div>
+                        </div>
+                    </form>
                 </div>
             </div>
+        </div>
+    </div>
 
-            <!-- EDIT Modal -->
-            <div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog"
-            aria-labelledby="myModalLabel160" aria-hidden="true">
-            <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
-                    <div class="modal-content">
-                        <div class="modal-header bg-primary">
-                            <h5 class="modal-title white" id="myModalLabel160">Edit Perangkat Daerah</h5>
-                            <button type="button" class="close" data-bs-dismiss="modal"
-                            aria-label="Close">
-                            <i data-feather="x"></i>
-                        </button>
-                        </div>
-                        <div class="modal-body" id="loadeditform">
+    <!-- EDIT Modal -->
+    <div class="modal fade text-left" id="editModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel160"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-primary">
+                    <h5 class="modal-title white" id="myModalLabel160">Edit Perangkat Daerah</h5>
+                    <button type="button" class="close" data-bs-dismiss="modal" aria-label="Close">
+                        <i data-feather="x"></i>
+                    </button>
+                </div>
+                <div class="modal-body" id="loadeditform">
 
-                        </div>
-                    </div>
                 </div>
             </div>
-        @endsection
+        </div>
+    </div>
+@endsection
 
-        @push('myscript')
-            <script>
-                $(function() {
-                    $(".edit").click(function() {
-                        var id_pd = $(this).attr('id_pd');
-                        $.ajax({
-                            type: 'POST',
-                            url: '/perangkatdaerah/editpd',
-                            cache: false,
-                            data: {
-                                _token: "{{ csrf_token() }}",
-                                id_pd: id_pd
-                            },
-                            success: function(respone) {
-                                $("#loadeditform").html(respone);
-                            }
-                        });
-                        $("#editModal").modal("show");
-                    });
-                    $(".delete").click(function(e) {
-                        var form = $(this).closest('form');
-                        e.preventDefault();
-                        Swal.fire({
-                            title: 'Are you sure?',
-                            text: "You won't be able to revert this!",
-                            icon: 'warning',
-                            showCancelButton: true,
-                            confirmButtonColor: '#3085d6',
-                            cancelButtonColor: '#d33',
-                            confirmButtonText: 'Yes, delete it!'
-                        }).then((result) => {
-                            if (result.isConfirmed) {
-                                form.submit();
-                                Swal.fire(
-                                    'Deleted!',
-                                    'Your file has been deleted.',
-                                    'success'
-                                )
-                            }
-                        })
-                    });
-
-                    $("#frmPd").submit(function() {
-                        var id_pd = $("#id_pd").val();
-                        var nama_pd = $("#nama_pd").val();
-                        if (id_pd == null || id_pd == "") {
-                            alert('ID Harus Diisi');
-                            $("#id_pd").focus();
-                            return false;
-                        }
-
-
-                    });
+@push('myscript')
+    <script>
+        $(function() {
+            $(".edit").click(function() {
+                var id_pd = $(this).attr('id_pd');
+                $.ajax({
+                    type: 'POST',
+                    url: '/perangkatdaerah/editpd',
+                    cache: false,
+                    data: {
+                        _token: "{{ csrf_token() }}",
+                        id_pd: id_pd
+                    },
+                    success: function(respone) {
+                        $("#loadeditform").html(respone);
+                    }
                 });
-            </script>
-        @endpush
+                $("#editModal").modal("show");
+            });
+            $(".delete").click(function(e) {
+                var form = $(this).closest('form');
+                e.preventDefault();
+                Swal.fire({
+                    title: 'Are you sure?',
+                    text: "You won't be able to revert this!",
+                    icon: 'warning',
+                    showCancelButton: true,
+                    confirmButtonColor: '#3085d6',
+                    cancelButtonColor: '#d33',
+                    confirmButtonText: 'Yes, delete it!'
+                }).then((result) => {
+                    if (result.isConfirmed) {
+                        form.submit();
+                        Swal.fire(
+                            'Deleted!',
+                            'Your file has been deleted.',
+                            'success'
+                        )
+                    }
+                })
+            });
+
+            $("#frmPd").submit(function() {
+                var id_pd = $("#id_pd").val();
+                var nama_pd = $("#nama_pd").val();
+                if (id_pd == null || id_pd == "") {
+                    alert('ID Harus Diisi');
+                    $("#id_pd").focus();
+                    return false;
+                }
+
+
+            });
+        });
+    </script>
+@endpush

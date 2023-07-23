@@ -52,15 +52,16 @@
             margin: 25px 20px 75px 100px;
             font-size: 10px;
             float: right
-
         }
-        .fotopem{
+
+        .fotopem {
             padding-left: 50px;
 
         }
-        img{
-            width:75px;
-            height:75px;
+
+        img {
+            width: 75px;
+            height: 75px;
 
         }
     </style>
@@ -79,8 +80,7 @@
         <table style="font-family: Arial, Helvetica, sans-serif;vertical-align: top;width:100%">
             <tr>
                 <td class="fotopem">
-                    <img src="{{ asset('assets/img/icon/bekasi.png') }}"
-                         alt="">
+                    <img src="{{ asset('assets/img/icon/bekasi.png') }}" alt="">
                 </td>
                 <td align=center>
 
@@ -132,7 +132,8 @@
                     }
                 ?>
                     <td>
-                        <span style="color:{{ $h[0] > '07:30:00' ? 'red' : '' }}">{{ !empty($h[0]) ? $h[0] : 'null' }}</span><br>
+                        <span
+                            style="color:{{ $h[0] > '07:30:00' ? 'red' : '' }}">{{ !empty($h[0]) ? $h[0] : 'null' }}</span><br>
                         <span style="color:{{ $h[1] < '15:30:00' ? 'red' : '' }}">{{ $h[1] }}</span><br>
                     </td>
                     <?php

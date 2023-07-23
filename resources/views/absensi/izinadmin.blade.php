@@ -13,7 +13,7 @@
                         <div class="table-responsive">
                             <table class="table table-bordered mb-0">
                                 <thead>
-                                    <tr >
+                                    <tr>
                                         <th>#</th>
                                         <th>NIK</th>
                                         <th>Nama Lengkap</th>
@@ -44,7 +44,8 @@
                                             </th>
                                             <th>
                                                 @if ($data->status_approved == 0)
-                                                    <a href="#" id="approved" class="approved btn btn-icon btn-primary"
+                                                    <a href="#" id="approved"
+                                                        class="approved btn btn-icon btn-primary"
                                                         id_izin="{{ $data->id }}">
                                                         <span class="bi bi-hand-index"></span>
                                                     </a>

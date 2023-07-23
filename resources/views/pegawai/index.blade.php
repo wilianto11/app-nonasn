@@ -1,143 +1,144 @@
 @extends('layouts.mazer.mazer')
 @section('content')
-<section class="section">
-    <div class="row" id="table-bordered">
-        <div class="col-12">
-            <div class="card">
-                <div class="card-header">
-                    <h4 class="card-title">Table Pegawai Non ASN</h4>
-                </div>
-                <div class="card-content">
+    <section class="section">
+        <div class="row" id="table-bordered">
+            <div class="col-12">
+                <div class="card">
+                    <div class="card-header">
+                        <h4 class="card-title">Table Pegawai Non ASN</h4>
+                    </div>
+                    <div class="card-content">
 
 
-                @if (Session::get('success'))
-                    <div class="alert alert-success" role="alert">
-                        {{ Session::get('success') }}
+                        @if (Session::get('success'))
+                            <div class="alert alert-success" role="alert">
+                                {{ Session::get('success') }}
+
+                            </div>
+                        @endif
+                        @if (Session::get('error'))
+                            <div class="alert alert-danger" role="alert">
+
+                                {{ Session::get('error') }}
+
+                            </div>
+                        @endif
+
 
                     </div>
-                @endif
-                @if (Session::get('error'))
-                    <div class="alert alert-danger" role="alert">
+                    <div class="card-body">
+                        <div class="mt-3">
+                            <button style="float: right" type="button" class="btn btn-primary" data-bs-toggle="modal"
+                                data-bs-target="#largeModal">
+                                +
+                            </button>
+                        </div>
+                        <div class="col-6">
+                            <form action="/pegawai" method="GET" class="mb-2">
+                                <div class="input-group input-group-merge">
+                                    <span class="input-group-text"><i class="bx bx-search fs-4 lh-0"></i></span>
+                                    <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
+                                        placeholder="Search...." aria-label="Search...."
+                                        aria-describedby="basic-icon-default-email2" />
+                                </div>
 
-                        {{ Session::get('error') }}
-
-                    </div>
-                @endif
-
-
-            </div>
-            <div class="card-body">
-                <div class="mt-3">
-                    <button style="float: right" type="button" class="btn btn-primary" data-bs-toggle="modal"
-                        data-bs-target="#largeModal">
-                        +
-                    </button>
-                </div>
-                <div class="col-6">
-                    <form action="/pegawai" method="GET" class="mb-2">
-                        <div class="input-group input-group-merge">
-                            <span class="input-group-text"><i class="bx bx-search fs-4 lh-0"></i></span>
-                            <input type="text" name="nama_lengkap" id="nama_lengkap" class="form-control"
-                                placeholder="Search...." aria-label="Search...."
-                                aria-describedby="basic-icon-default-email2" />
+                            </form>
                         </div>
 
-                    </form>
+
+                        <div class="table-responsive">
+                            <table class="table table-bordered mb-0">
+                                <thead>
+                                    <tr>
+                                        <th>#</th>
+                                        <th>NIK</th>
+                                        <th>NAMA LENGKAP</th>
+                                        <th>JENIS KELAMIN</th>
+                                        <th>TANGGAL LAHIR</th>
+                                        <th>PERANGKAT DAERAH</th>
+                                        <th>BAGIAN</th>
+                                        <th>NO.HP</th>
+                                        <th>FOTO</th>
+                                        <th>AKSI</th>
+                                    </tr>
+                                </thead>
+                                <tbody>
+                                    @foreach ($pegawai as $data)
+                                        @php
+                                            $path = Storage::url('uploads/pegawai/' . $data->foto);
+                                        @endphp
+                                        <tr>
+                                            <th>{{ $loop->iteration + $pegawai->firstItem() - 1 }}</th>
+                                            <th>{{ $data->nik_pegawai }}</th>
+                                            <th>{{ $data->nama_lengkap }}</th>
+                                            <th>{{ $data->nama_kelamin }}</th>
+                                            <th>{{ $data->tgl_lahir }}</th>
+                                            <th>{{ $data->nama_pd }}</th>
+                                            <th>{{ $data->bagian }}</th>
+                                            <th>{{ $data->no_telp }}</th>
+                                            <th>
+                                                <ul
+                                                    class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
+                                                    @if (empty($data->foto))
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" class="avatar avatar-x pull-up"
+                                                            title="wilianto">
+                                                            <img src="{{ asset('assets/img/wili.png') }}" alt="avatar"
+                                                                class="rounded-circle">
+                                                        </li>
+                                                    @else
+                                                        <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
+                                                            data-bs-placement="top" class="avatar avatar-x pull-up"
+                                                            title="wilianto">
+                                                            <img src="{{ url($path) }}" alt="avatar"
+                                                                class="rounded-circle">
+                                                        </li>
+                                                    @endif
+                                                </ul>
+                                            </th>
+                                            <th>
+                                                <div class="dropdown">
+                                                    <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
+                                                        data-bs-toggle="dropdown">
+                                                        <i class="bx bx-dots-vertical-rounded"></i>
+                                                    </button>
+                                                    <div class="dropdown-menu">
+                                                        <a class="edit" id="dropdown-item" href="#"
+                                                            nik="{{ $data->nik }}"><i class="bx bx-edit me-1"></i>
+                                                            Edit</a>
+                                                        <form action="/pegawai/{{ $data->nik }}/hapus" method="POST">
+                                                            @csrf
+
+                                                            <a class="delete" id="dropdown-item"><i
+                                                                    class="bx bx-trash me-1"></i> Delete</a>
+                                                        </form>
+                                                    </div>
+                                                </div>
+                                            </th>
+
+                                        </tr>
+                                    @endforeach
+                                </tbody>
+                            </table>
+                        </div>
+                        {{ $pegawai->links('pagination::bootstrap-5') }}
+                    </div>
                 </div>
-
-
-                <div class="table-responsive">
-                    <table class="table table-bordered mb-0">
-                        <thead>
-                            <tr>
-                                <th>#</th>
-                                <th>NIK</th>
-                                <th>NAMA LENGKAP</th>
-                                <th>JENIS KELAMIN</th>
-                                <th>TANGGAL LAHIR</th>
-                                <th>PERANGKAT DAERAH</th>
-                                <th>BAGIAN</th>
-                                <th>NO.HP</th>
-                                <th>FOTO</th>
-                                <th>AKSI</th>
-                            </tr>
-                        </thead>
-                        <tbody>
-                            @foreach ($pegawai as $data)
-                                @php
-                                    $path = Storage::url('uploads/pegawai/' . $data->foto);
-                                @endphp
-                                <tr>
-                                    <th>{{ $loop->iteration + $pegawai->firstItem() - 1 }}</th>
-                                    <th>{{ $data->nik_pegawai }}</th>
-                                    <th>{{ $data->nama_lengkap }}</th>
-                                    <th>{{ $data->nama_kelamin }}</th>
-                                    <th>{{ $data->tgl_lahir }}</th>
-                                    <th>{{ $data->nama_pd }}</th>
-                                    <th>{{ $data->bagian }}</th>
-                                    <th>{{ $data->no_telp }}</th>
-                                    <th>
-                                        <ul class="list-unstyled users-list m-0 avatar-group d-flex align-items-center">
-                                            @if (empty($data->foto))
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                    data-bs-placement="top" class="avatar avatar-x pull-up"
-                                                    title="wilianto">
-                                                    <img src="{{ asset('assets/img/wili.png') }}" alt="avatar"
-                                                        class="rounded-circle">
-                                                </li>
-                                            @else
-                                                <li data-bs-toggle="tooltip" data-popup="tooltip-custom"
-                                                    data-bs-placement="top" class="avatar avatar-x pull-up"
-                                                    title="wilianto">
-                                                    <img src="{{ url($path) }}" alt="avatar" class="rounded-circle">
-                                                </li>
-                                            @endif
-                                        </ul>
-                                    </th>
-                                    <th>
-                                        <div class="dropdown">
-                                            <button type="button" class="btn p-0 dropdown-toggle hide-arrow"
-                                                data-bs-toggle="dropdown">
-                                                <i class="bx bx-dots-vertical-rounded"></i>
-                                            </button>
-                                            <div class="dropdown-menu">
-                                                <a class="edit" id="dropdown-item" href="#"
-                                                    nik="{{ $data->nik }}"><i class="bx bx-edit me-1"></i> Edit</a>
-                                                <form action="/pegawai/{{ $data->nik }}/hapus" method="POST" >
-                                                    @csrf
-
-                                                    <a class="delete" id="dropdown-item"
-                                                    ><i
-                                                        class="bx bx-trash me-1"></i> Delete</a>
-                                                </form>
-                                            </div>
-                                        </div>
-                                    </th>
-
-                                </tr>
-                            @endforeach
-                        </tbody>
-                    </table>
-                </div>
-                {{ $pegawai->links('pagination::bootstrap-5') }}
             </div>
         </div>
-        </div>
-    </div>
-</section>
-        <!--/ Responsive Table -->
+    </section>
+    <!--/ Responsive Table -->
 
 
     </div>
     <!--Modal Large-->
     <!-- Large Modal -->
-    <div class="modal fade text-left" id="largeModal" tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel33" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    role="document">
-    <div class="modal-content">
-        <div class="modal-header bg-success">
-            <h5 class="modal-title white" id="myModalLabel110">Tambah pegawai</h5>
+    <div class="modal fade text-left" id="largeModal" tabindex="-1" role="dialog" aria-labelledby="myModalLabel33"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title white" id="myModalLabel110">Tambah pegawai</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body">
@@ -226,13 +227,12 @@
     </div>
 
     <!-- EDIT Modal -->
-    <div class="modal fade  text-left" id="editModal"tabindex="-1" role="dialog"
-    aria-labelledby="myModalLabel110" aria-hidden="true">
-    <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable"
-    role="document">
-    <div class="modal-content">
-        <div class="modal-header bg-success">
-            <h5 class="modal-title white" id="myModalLabel110">Edit pegawai</h5>
+    <div class="modal fade  text-left" id="editModal"tabindex="-1" role="dialog" aria-labelledby="myModalLabel110"
+        aria-hidden="true">
+        <div class="modal-dialog modal-dialog-centered modal-dialog-scrollable" role="document">
+            <div class="modal-content">
+                <div class="modal-header bg-success">
+                    <h5 class="modal-title white" id="myModalLabel110">Edit pegawai</h5>
                     <button type="button" class="btn-close" data-bs-dismiss="modal" aria-label="Close"></button>
                 </div>
                 <div class="modal-body" id="loadeditform">
