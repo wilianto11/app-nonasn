@@ -21,7 +21,7 @@ function selisih($jam_masuk, $jam_keluar)
     @endphp
     <tr>
         <td>{{ $loop->iteration }}</td>
-        <td>{{ $item->nik }}</td>
+        <td>{{ $item->nik_pegawai }}</td>
         <td>{{ $item->nama_lengkap }}</td>
         <td>{{ $item->nama_pd }}</td>
         <td>{{ $item->jam_in }}</td>

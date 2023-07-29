@@ -245,7 +245,7 @@ class AbsensiController extends Controller
     {
         $tanggal = $request->tanggal;
         $absensi = DB::table('absensis')
-            ->select('absensis.*', 'nama_lengkap', 'nama_pd')
+            ->select('absensis.*', 'nama_lengkap','nik_pegawai', 'nama_pd')
             ->join('pegawais', 'absensis.nik', '=', 'pegawais.nik')
             ->join('pd', 'pegawais.id_pd', '=', 'pd.id_pd')
             ->where('tgl_absensi', $tanggal)
