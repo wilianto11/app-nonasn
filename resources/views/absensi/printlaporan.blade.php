@@ -78,7 +78,7 @@
         <tr>
             <td>NIK</td>
             <td>:</td>
-            <td>{{ $pegawai->nik }}</td>
+            <td>{{ $pegawai->nik_pegawai }}</td>
             <td style="padding-left: 150px">Perangkat Daerah</td>
             <td>:</td>
             <td>{{ $pegawai->nama_pd }}</td>
@@ -130,20 +130,20 @@
         </tr>
         <tr>
             <td >
-                ASISTEM PEMERINTAHAN DAN KESRA
+                KEPALA BAGIAN UMUM
             </td>
         </tr>
         <tr>
             <td style="height: 27mm;vertical-align:bottom">
-               dr.Hj.ENNI MAINIARTI,M.K.M
+               KHAERUL HAMID.S.IP.,M.M
             </td>
         </tr>
         <tr>
-            <td>Pembina Utama Muda</td>
+            <td>Pembina IV.a</td>
         </tr>
         <tr>
             <td>
-                NIP.19760301 199601 1 001
+                NIP.198807182006041006
             </td>
         </tr>
     </table>
